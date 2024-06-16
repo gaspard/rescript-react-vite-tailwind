@@ -5,14 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "run-p *:dev",
+    "build": "run-s res:build vite:build",
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript -w",
     "vite:dev": "vite",
-    "build": "vite build",
+    "vite:build": "vite build",
     "preview": "vite preview",
-    "nginx:build": "cd services/nginx && docker build . -t rrvt-app-nginx",
-    "nginx:run": "docker run -p 8080:80 rrvt-app-nginx"
+    "nginx:build": "docker build . --file services/nginx/Dockerfile -t rrvt-nginx",
+    "nginx:run": "echo '\n\nhttp://localhost:8080\n\n' && docker run -p 8080:80 rrvt-nginx",
+    "test": "exit 0"
   },
   "dependencies": {
     "@rescript/core": "^1.5.0",
