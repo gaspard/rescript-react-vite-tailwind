@@ -38,7 +38,7 @@ function App(props) {
                                   children: "ReScript",
                                   className: "font-bold"
                                 }),
-                            " CI/CD"
+                            " Github & Argo CD"
                           ],
                           className: "text-2xl"
                         }),

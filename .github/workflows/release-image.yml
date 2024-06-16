@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
       attestations: write
       id-token: write
@@ -51,3 +51,24 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Compute short sha
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Checkout deploy
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}_DEPLOY
+          path: "DEPLOY"
+      - name: Update Deploy
+        working-directory: ./DEPLOY
+        run: |
+          sed -i'' 's/APP_VERSION:.*/APP_VERSION: sha-${{ steps.vars.outputs.sha_short }}/' values.yaml
+      - name: Commit and push
+        working-directory: ./DEPLOY
+        run: |
+          git config --global user.name "CI Robot ${{ github.actor }}"
+          git config --global user.email "${{github.event.pusher.email}}"
+          git add .
+          git commit -m "CI: deploy"
+          git push
