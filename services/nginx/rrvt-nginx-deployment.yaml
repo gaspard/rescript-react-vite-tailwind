@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rrvt-nginx
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: rrvt-nginx
+  template:
+    metadata:
+      labels:
+        app: rrvt-nginx
+    spec:
+      containers:
+        - image: ghcr.io/gaspard/rescript-react-vite-tailwind-nginx:{{ .Values.env.APP_VERSION }}
+          name: rrvt-nginx
+          ports:
+            - containerPort: 80
