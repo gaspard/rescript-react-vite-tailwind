@@ -38,3 +38,43 @@ $ npm create rescript-app@latest
 │
 └  Happy hacking!
 ```
+
+Changed the scripts to run all `*:dev` scripts in parallel:
+
+```sh
+$ npm i --save-dev npm-run-all
+```
+
+With this change to `package.json`:
+
+```json
+  "scripts": {
+    "dev": "run-p *:dev",
+    "res:build": "rescript",
+    "res:clean": "rescript clean",
+    "res:dev": "rescript -w",
+    "vite:dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+```
+
+And we will be using `.mjs` extension so these changes need to be done (this gives an opportunity to understand how all this works):
+
+In `rescript.json` we tell ReScript about compilation output:
+
+```json
+  "suffix": ".mjs",
+```
+
+In `tailwind.config.cjs` we tell Tailwind CSS about the files to scan for classes:
+
+```js
+  content: ["./index.html", "./src/**/*.mjs"],
+```
+
+And finally, we need to tell Vite about our application entry:
+
+```html
+<script type="module" src="/src/Main.mjs"></script>
+```
