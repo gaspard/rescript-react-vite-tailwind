@@ -34,7 +34,7 @@ let make = () => {
       <h1 className="text-2xl">
         {"Hello "->rs}
         <span className="font-bold"> {"ReScript"->rs} </span>
-        {" App"->rs}
+        {" CI/CD"->rs}
       </h1>
     </div>
   </div>
