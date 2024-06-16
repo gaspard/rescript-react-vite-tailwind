@@ -10,7 +10,9 @@
     "res:dev": "rescript -w",
     "vite:dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "nginx:build": "cd services/nginx && docker build . -t rrvt-app-nginx",
+    "nginx:run": "docker run -p 8080:80 rrvt-app-nginx"
   },
   "dependencies": {
     "@rescript/core": "^1.5.0",

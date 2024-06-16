@@ -78,3 +78,21 @@ And finally, we need to tell Vite about our application entry:
 ```html
 <script type="module" src="/src/Main.mjs"></script>
 ```
+
+Steps until here are in the [base branch](./tree/base).
+
+# DevOps
+
+## Nginx service
+
+We will now publish our app with nginx. For this we create a service with an appropriate
+Dockerfile and move the build location to this service folder (docker does a chroot in this
+folder on build).
+
+For those who prefer using a Dev Container to work in VS Code, we added a configuration file in `.devcontainer`. This runs a Node.js container with access to the host docker client to test building the image.
+
+```sh
+$ npm i
+$ npm run build
+$ npm run nginx:build
+```
