@@ -14,7 +14,7 @@ spec:
         app: rrvt-nginx
     spec:
       containers:
-        - image: ghcr.io/gaspard/rescript-react-vite-tailwind-nginx:{{ .Values.env.APP_VERSION }}
+        - image: ghcr.io/gaspard/rescript-react-vite-tailwind-nginx:{{ .Values.env.appVersion }}
           name: rrvt-nginx
           ports:
             - containerPort: 80
