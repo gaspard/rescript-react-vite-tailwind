@@ -54,9 +54,12 @@ jobs:
       - name: Compute short sha
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: "Checkout deploy branch"
+        uses: actions/checkout@v4
+        with:
+          ref: deploy
       - name: Update Deploy
         run: |
-          git checkout deploy
           sed -i'' 's/APP_VERSION:.*/APP_VERSION: sha-${{ steps.vars.outputs.sha_short }}/' services/nginx/values.yaml
       - name: Commit and push
         run: |
