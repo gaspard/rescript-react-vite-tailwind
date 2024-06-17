@@ -60,7 +60,7 @@ jobs:
           ref: deploy
       - name: Update Deploy
         run: |
-          sed -i'' 's/APP_VERSION:.*/APP_VERSION: sha-${{ steps.vars.outputs.sha_short }}/' services/nginx/values.yaml
+          sed -i'' 's/appVersion:.*/appVersion: sha-${{ steps.vars.outputs.sha_short }}/' services/nginx/values.yaml
       - name: Commit and push
         run: |
           git config --global user.name "CI Robot ${{ github.actor }}"
